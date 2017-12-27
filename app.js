@@ -2,7 +2,7 @@ var express = require('express');
 //Set up mongoose connection
 var mongoose = require('mongoose');
 //'mongodb+srv://hinajajoo:<PASSWORD>@cluster0-lnpwi.mongodb.net/test'
-var mongoDB = 'mongodb://hinajajoo:hinajajoo@cluster0-shard-00-00-lnpwi.mongodb.net:27017,cluster0-shard-00-01-lnpwi.mongodb.net:27017,cluster0-shard-00-02-lnpwi.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin'
+var mongoDB = 'mongodb://hinajajoo:hinajajoo@cluster0-shard-00-00-lnpwi.mongodb.net:27017,cluster0-shard-00-01-lnpwi.mongodb.net:27017,cluster0-shard-00-02-lnpwi.mongodb.net:27017/morning-status?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin'
 //var mongoDB = 'mongodb+svr://hinajajoo:hinajajoo@cluster0-lnpwi.mongodb.net/morning-status';
 mongoose.connect(mongoDB, {
   useMongoClient: true
