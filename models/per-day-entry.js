@@ -26,5 +26,11 @@ var DaySchema = new Schema(
   }
 );
 
+DaySchema
+.virtual('url')
+.get(function(){
+  return '/daily-entry/' + parseDate(this._id);
+})
+
 //Export model
 module.exports = mongoose.model('perDayEntry', DaySchema);
