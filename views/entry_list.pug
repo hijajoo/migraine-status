@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1= title
+
+  ul
+  each val in list_entries
+    li
+      a(href=val.url) #{val.datestr}
+
+  else
+    li There are no entries.
