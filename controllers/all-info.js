@@ -58,6 +58,14 @@ exports.single_entry_create_post =  [
             return;
         }
         else {
+            entry.findOne({'_id': req.body.date})
+              .exec(function(err, found_entry){
+                if(err) return next(err);
+                if(found_entry){
+                  alert("Already exists")
+                  res.redirect(found_entry.url)
+                }
+              })
               alert("Success!")
               entry.save(function (err) {
                 if (err) { return next(err); }
@@ -66,3 +74,15 @@ exports.single_entry_create_post =  [
         }
     }
 ];
+
+
+// Display list of all entries
+exports.entry_list = function(req, res, next) {
+  perDayEntry.find()
+    .sort([['_id', 'ascending']])
+    .exec(function (err, list_entries) {
+      if (err) { return next(err); }
+      // Successful, so render.
+      res.render('entry_list', { title: 'Entries List', list_entries:  list_entries});
+    });
+};

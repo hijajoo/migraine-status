@@ -29,7 +29,13 @@ var DaySchema = new Schema(
 DaySchema
 .virtual('url')
 .get(function(){
-  return '/daily-entry/' + parseDate(this._id);
+  return '/daily-entry/' + this._id.toDateString();
+})
+
+DaySchema
+.virtual('datestr')
+.get(function(){
+  return this._id.toDateString();
 })
 
 //Export model
