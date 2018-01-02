@@ -58,18 +58,16 @@ exports.single_entry_create_post =  [
             return;
         }
         else {
-            entry.findOne({'_id': req.body.date})
+            perDayEntry.findOne({'_id': req.body.date})
               .exec(function(err, found_entry){
                 if(err) return next(err);
                 if(found_entry){
-                  alert("Already exists")
                   res.redirect(found_entry.url)
                 }
               })
-              alert("Success!")
               entry.save(function (err) {
                 if (err) { return next(err); }
-                res.redirect("/daily-entry/all")
+                res.redirect(entry.url);
               });
         }
     }
@@ -84,5 +82,14 @@ exports.entry_list = function(req, res, next) {
       if (err) { return next(err); }
       // Successful, so render.
       res.render('entry_list', { title: 'Entries List', list_entries:  list_entries});
+    });
+};
+
+// Display detail page for a specific entry
+exports.entry_detail = function(req, res, next) {
+  perDayEntry.findById(new Date(+req.params.id))
+    .exec(function(err, entry){
+      if(err) return next(err);
+      res.render('entry_detail', { title: 'Entry Detail', entry: entry});
     });
 };

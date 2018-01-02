@@ -29,7 +29,7 @@ var DaySchema = new Schema(
 DaySchema
 .virtual('url')
 .get(function(){
-  return '/daily-entry/' + this._id.toDateString();
+  return '/daily-entry/entry/' + this._id.getTime();
 })
 
 DaySchema
