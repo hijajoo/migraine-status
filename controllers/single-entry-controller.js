@@ -2,6 +2,11 @@ var perDayEntry = require('../models/per-day-entry-schema');
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 var async = require('async');
+var validReliefInput = [
+  "n/a",
+  "helped",
+  "did not help"
+];
 
 // Display Genre create form on GET
 exports.create_get = function(req, res, next) {
@@ -11,8 +16,17 @@ exports.create_get = function(req, res, next) {
 //POST request for create form
 exports.create_post =  [
     // Validate that the name field is not empty.
-    body('date', 'Enter Date').isLength({ min: 1 }).trim(),
-    body('status_on_wakeup', "Enter status on wakeup",).isLength({min:1}).trim(),
+    body('date', 'Enter Date').trim().isLength({ min: 1 }).not().isAfter(),
+    body('status_on_wakeup', "Enter status on wakeup").trim().isLength({min:1}),
+    body('severity', "Enter a severity between 0 to 10").optional().isInt({min:0, max:10}),
+    body('tea', "Invalid value for relief method: Tea").optional().trim().isIn(validReliefInput),
+    body('walk', "Invalid value for relief method: Walk").optional().trim().isIn(validReliefInput),
+    body('aciloc', "Invalid value for relief method: Aciloc").optional().trim().isIn(validReliefInput),
+    body('bath', "Invalid value for relief method: Bath").optional().trim().isIn(validReliefInput),
+    body('food', "Invalid value for relief method: Food").optional().trim().isIn(validReliefInput),
+    body('random', "Invalid value for relief method: Random").optional().trim().isIn(validReliefInput),
+    body('rizora', "Invalid value for relief method: Rizora").optional().trim().isIn(validReliefInput),
+
 
     // Process request after validation and sanitization.
     (req, res, next) => {
@@ -23,7 +37,7 @@ exports.create_post =  [
         var entry = new perDayEntry(
           { _id: req.body.date,
             status_on_wakeup: req.body.status_on_wakeup,
-            severity: parseInt(req.body.severity),
+            severity: (req.body.severity === undefined ? 0: parseInt(req.body.severity)),
             relief_methods: {
               tea: req.body.tea,
               walk: req.body.walk,
