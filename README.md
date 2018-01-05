@@ -5,7 +5,7 @@ This is a simple form I am using to enter my daily migraine status into a Mongo-
 Steps to run:  
 Clone the repo- "git clone https://github.com/hijajoo/migraine-status.git".  
 Install- "npm install".  
-Run- "npm start".
-Test- "npm test".
+Run- "npm start".  
+Test- "npm test".  
 
 In the browser, run: "localhost:3000".  

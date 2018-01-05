@@ -2,8 +2,46 @@ extends layout
 
 block content
 
-  h1 Entry for: #{entry.datestr}
-
-  div(style='margin-left:20px;margin-top:20px')
-
-    h4 #{entry.status_on_wakeup}
+  h1 #{entry.datestr}
+  div
+    table(class='table')
+      tbody
+        tr
+          td Status on waking up
+          td #{entry.status_on_wakeup}
+        tr
+          td Severity
+          td #{entry.severity}
+        tr
+          td Relief Method: Tea
+          td #{entry.relief_methods.tea}
+        tr
+          td Relief Method: Walk
+          td #{entry.relief_methods.walk}
+        tr
+          td Relief Method: Bath
+          td #{entry.relief_methods.bath}
+        tr
+          td Relief Method: Aciloc
+          td #{entry.relief_methods.aciloc}
+        tr
+          td Relief Method: Food
+          td #{entry.relief_methods.food}
+        tr
+          td Relief Method: Random Medicine
+          td #{entry.relief_methods.random}
+        tr
+          td Relief Method: Rizora
+          td #{entry.relief_methods.rizora}
+        tr
+          td Possible Trigger: Took night medication late
+          td #{entry.status_of_triggers.night_meds_on_time === false}
+        tr
+          td Possible Trigger: Took ayurvedic medicines
+          td #{entry.status_of_triggers.ayurvedic_medicine}
+        tr
+          td Possible Trigger: Overexertion
+          td #{entry.status_of_triggers.overexertion}
+        tr
+          td Possible Triggers: Acidity
+          td #{entry.status_of_triggers.acidity}
