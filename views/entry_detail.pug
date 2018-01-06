@@ -3,7 +3,7 @@ extends layout
 block content
   h1 #{entry.datestr}
   button.glyphicon.glyphicon-pencil(data-toggle="modal" href='#inputModal' data-target="#inputModal")
-  button.glyphicon.glyphicon-trash(onClick=console.log("Pressed Delete"))
+  button.glyphicon.glyphicon-trash
   div
     table(class='table')
       tbody
@@ -46,67 +46,67 @@ block content
         tr
           td Possible Triggers: Acidity
           td #{entry.status_of_triggers.acidity}
-  div(id='inputModal', class='modal fade', tabindex='-1', role='dialog', aria-hidden='true')
-    div(class='modal-dialog', role='document')
+  div.modal.fade(id='inputModal', aria-hidden='true')
+    div.modal-dialog
       div.modal-content
         div.modal-header
           h2.modal-title Edit Entry
           button.close(type='button', data-dismiss='modal')
+            span(aria-hidden="true") &times;
         div.modal-body
-        table(class='table')
-          tbody
-            tr
-              td Status on waking up
-              td
-                input(type='text', value=entry.status_on_wakeup)
-            tr
-              td Severity
-              td
-                input(type='text', value=entry.severity)
-            tr
-              td Relief Method: Tea
-              td
-                input(type='text', value=entry.relief_methods.tea)
-            tr
-              td Relief Method: Walk
-              td
-                input(type='text', value=entry.relief_methods.tea)
-            tr
-              td Relief Method: Bath
-              td
-                input(type='text', value=entry.relief_methods.bath)
-            tr
-              td Relief Method: Aciloc
-              td
-                input(type='text', value=entry.relief_methods.aciloc)
-            tr
-              td Relief Method: Food
-              td
-                input(type='text', value=entry.relief_methods.food)
-            tr
-              td Relief Method: Random Medicine
-              td
-                input(type='text', value=entry.relief_methods.random)
-            tr
-              td Relief Method: Rizora
-              td
-                input(type='text', value=entry.relief_methods.rizora)
-            tr
-              td Possible Trigger: Took night medication on time
-              td
-                input(type='text', value=entry.status_of_triggers.night_meds_on_time)
-            tr
-              td Possible Trigger: Took ayurvedic medicines
-              td
-                input(type='text', value=entry.status_of_triggers.ayurvedic_medicine)
-            tr
-              td Possible Trigger: Overexertion
-              td
-                input(type='text', value=entry.status_of_triggers.overexertion)
-            tr
-              td Possible Triggers: Acidity
-              td
-                input(type='text', value=entry.status_of_triggers.acidity)
-        div.modal-footer
-          button.btn.btn-secondary(type='button', data-dismiss='modal') Close
-          button.btn.btn-primary(type='button') Save
+          form(method='POST', action='update')
+            table.table
+              tbody
+                tr
+                  td Status on waking up
+                  td
+                    input(name='status_on_wakeup', type='text', value=entry.status_on_wakeup)
+                    tr
+                      td Severity
+                      td
+                        input(name='severity', type='text', value=entry.severity)
+                    tr
+                      td Relief Method: Tea
+                      td
+                        input(name='tea', type='text', value=entry.relief_methods.tea)
+                    tr
+                      td Relief Method: Walk
+                      td
+                        input(name='walk', type='text', value=entry.relief_methods.tea)
+                    tr
+                      td Relief Method: Bath
+                      td
+                        input(name='bath', type='text', value=entry.relief_methods.bath)
+                    tr
+                      td Relief Method: Aciloc
+                      td
+                        input(name='aciloc', type='text', value=entry.relief_methods.aciloc)
+                    tr
+                      td Relief Method: Food
+                      td
+                        input(name='food', type='text', value=entry.relief_methods.food)
+                    tr
+                      td Relief Method: Random Medicine
+                      td
+                        input(name='random', type='text', value=entry.relief_methods.random)
+                    tr
+                      td Relief Method: Rizora
+                      td
+                        input(name= 'rizora', type='text', value=entry.relief_methods.rizora)
+                    tr
+                      td Possible Trigger: Took night medication on time
+                      td
+                        input(name='night_meds_on_time', type='text', value='' + entry.status_of_triggers.night_meds_on_time)
+                    tr
+                      td Possible Trigger: Took ayurvedic medicines
+                      td
+                        input(name='ayurvedic_medicine', type='text', value='' + entry.status_of_triggers.ayurvedic_medicine)
+                    tr
+                      td Possible Trigger: Overexertion
+                      td
+                        input(name='overexertion', type='text', value='' + entry.status_of_triggers.overexertion)
+                    tr
+                      td Possible Triggers: Acidity
+                      td
+                        input(name='acidity', type='text', value='' + entry.status_of_triggers.acidity)
+            button.btn.btn-primary(type='submit') Save

@@ -87,3 +87,34 @@ exports.entry_detail = function(req, res, next) {
       res.render('entry_detail', { title: 'Entry Detail', entry: entry});
     });
 };
+
+exports.entry_update = function(req, res, next){
+  perDayEntry.update(
+    {date: new Date(+req.params.id)},
+    {
+      status_on_wakeup: req.body.status_on_wakeup,
+      severity: (req.body.severity === undefined ? 0 : parseInt(req.body.severity)),
+      relief_methods: {
+        tea: req.body.tea,
+        walk: req.body.walk,
+        bath: req.body.bath,
+        aciloc: req.body.aciloc,
+        food: req.body.food,
+        random: req.body.random,
+        rizora: req.body.rizora,
+      },
+      status_of_triggers: {
+        night_meds_on_time: (req.body.night_meds_on_time === 'true'),
+        ayurvedic_medicine: (req.body.ayurvedic_medicine === 'true'),
+        overexertion: (req.body.overexertion === 'true'),
+        acidity: (req.body.acidity === 'true'),
+      }
+    },
+    function(err, raw){
+      console.log(raw);
+    })
+}
+
+exports.entry_delete = function(req, res, next){
+  perDayEntry.deleteOne({date: new Date(+req.params.id)});
+}
