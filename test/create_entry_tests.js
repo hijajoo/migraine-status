@@ -20,8 +20,8 @@ module.exports = function create_entry_testcases(server){
     it("should return HTML 200", function(){
       expect(saveRes.statusCode).to.equal(200);
     });
-    it("should have title Create Single Day Entry", function(){
-      expect(saveBody).to.include('<title>Create Single Day Entry</title>');
+    it("should have title Create a new Entry", function(){
+      expect(saveBody).to.include('<title>Create a new Entry</title>');
     });
     it("should not accept empty form data", function(done){
       options = {

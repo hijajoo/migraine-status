@@ -3,7 +3,7 @@ extends layout
 block content
   h1 #{entry.datestr}
   button.glyphicon.glyphicon-pencil(data-toggle="modal" href='#inputModal' data-target="#inputModal")
-  button.glyphicon.glyphicon-trash
+  button.glyphicon.glyphicon-trash(data-toggle='modal', data-target='#deleteModal')
   div
     table(class='table')
       tbody
@@ -50,63 +50,74 @@ block content
     div.modal-dialog
       div.modal-content
         div.modal-header
-          h2.modal-title Edit Entry
+          h2.modal-title Edit Entry for #{entry.datestr}
           button.close(type='button', data-dismiss='modal')
             span(aria-hidden="true") &times;
         div.modal-body
-          form(method='POST', action='update')
+          form(method='POST', action=(entry.date_ts + '/update'))
             table.table
               tbody
                 tr
                   td Status on waking up
                   td
                     input(name='status_on_wakeup', type='text', value=entry.status_on_wakeup)
-                    tr
-                      td Severity
-                      td
-                        input(name='severity', type='text', value=entry.severity)
-                    tr
-                      td Relief Method: Tea
-                      td
-                        input(name='tea', type='text', value=entry.relief_methods.tea)
-                    tr
-                      td Relief Method: Walk
-                      td
-                        input(name='walk', type='text', value=entry.relief_methods.tea)
-                    tr
-                      td Relief Method: Bath
-                      td
-                        input(name='bath', type='text', value=entry.relief_methods.bath)
-                    tr
-                      td Relief Method: Aciloc
-                      td
-                        input(name='aciloc', type='text', value=entry.relief_methods.aciloc)
-                    tr
-                      td Relief Method: Food
-                      td
-                        input(name='food', type='text', value=entry.relief_methods.food)
-                    tr
-                      td Relief Method: Random Medicine
-                      td
-                        input(name='random', type='text', value=entry.relief_methods.random)
-                    tr
-                      td Relief Method: Rizora
-                      td
-                        input(name= 'rizora', type='text', value=entry.relief_methods.rizora)
-                    tr
-                      td Possible Trigger: Took night medication on time
-                      td
-                        input(name='night_meds_on_time', type='text', value='' + entry.status_of_triggers.night_meds_on_time)
-                    tr
-                      td Possible Trigger: Took ayurvedic medicines
-                      td
-                        input(name='ayurvedic_medicine', type='text', value='' + entry.status_of_triggers.ayurvedic_medicine)
-                    tr
-                      td Possible Trigger: Overexertion
-                      td
-                        input(name='overexertion', type='text', value='' + entry.status_of_triggers.overexertion)
-                    tr
-                      td Possible Triggers: Acidity
-                      td
-                        input(name='acidity', type='text', value='' + entry.status_of_triggers.acidity)
+                tr
+                  td Severity
+                  td
+                    input(name='severity', type='text', value=entry.severity)
+                tr
+                  td Relief Method: Tea
+                  td
+                    input(name='tea', type='text', value=entry.relief_methods.tea)
+                tr
+                  td Relief Method: Walk
+                  td
+                    input(name='walk', type='text', value=entry.relief_methods.walk)
+                tr
+                  td Relief Method: Bath
+                  td
+                    input(name='bath', type='text', value=entry.relief_methods.bath)
+                tr
+                  td Relief Method: Aciloc
+                  td
+                    input(name='aciloc', type='text', value=entry.relief_methods.aciloc)
+                tr
+                  td Relief Method: Food
+                  td
+                    input(name='food', type='text', value=entry.relief_methods.food)
+                tr
+                  td Relief Method: Random Medicine
+                  td
+                    input(name='random', type='text', value=entry.relief_methods.random)
+                tr
+                  td Relief Method: Rizora
+                  td
+                    input(name= 'rizora', type='text', value=entry.relief_methods.rizora)
+                tr
+                  td Possible Trigger: Took night medication on time
+                  td
+                    input(name='night_meds_on_time', type='text', value='' + entry.status_of_triggers.night_meds_on_time)
+                tr
+                  td Possible Trigger: Took ayurvedic medicines
+                  td
+                    input(name='ayurvedic_medicine', type='text', value='' + entry.status_of_triggers.ayurvedic_medicine)
+                tr
+                  td Possible Trigger: Overexertion
+                  td
+                    input(name='overexertion', type='text', value='' + entry.status_of_triggers.overexertion)
+                tr
+                  td Possible Triggers: Acidity
+                  td
+                    input(name='acidity', type='text', value='' + entry.status_of_triggers.acidity)
             button.btn.btn-primary(type='submit') Save
+  div.modal.fade(id='deleteModal', aria-hidden='true')
+    div.modal-dialog
+      div.modal-content
+        div.modal-header
+          button.close(type='button', data-dismiss='modal')
+            span(aria-hidden="true") &times;
+          h2.modal-title Delete Entry
+        div.modal-body
+          form(method='POST', action=entry.date_ts+'/delete')
+            p Are you sure you want to delete the entry for #{entry.datestr}?
+            button.btn.primary(type='submit') Yes

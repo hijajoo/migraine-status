@@ -2,66 +2,67 @@ extends layout
 
 block content
   h1 #{title}
-
-  form(method='POST' action='')
-    div.form-group
-      div.row.form-group
-        label.col-sm-3.container-fluid(for='date') Date of Entry:
-        input#name(type='date', name='date')
-
-      div.row.form-group
-        label.col-sm-3.col-form-label.container-fluid(for='status_on_wakeup') How did you wake up?:
-        input#status_on_wakeup.form_control(type='value', name='status_on_wakeup' value='fine')
-
-      div.row.form-group
-        label.col-sm-3.container-fluid(for='severity') How bad was it?:
-        input#severity.form_control(type='value', name='severity', value='0')
-
-      div.row.form-group
-        label.col-sm.container-fluid Did the following relief methods help?
-        div.row
-          label.col-sm-2.container-fluid(for='tea') Tea:
-          input#tea.form_control(type='input', name='tea', value='n/a')
-        div.row
-          label.col-sm-2.container-fluid(for='walk') Walk:
-          input#walk.form_control(type='input', name='walk', value='n/a')
-        div.row
-          label.col-sm-2.container-fluid(for='bath') Bath:
-          input#tea.form_control(type='input', name='bath', value='n/a')
-        div.row
-          label.col-sm-2.container-fluid(for='aciloc') Aciloc:
-          input#walk.form_control(type='input', name='aciloc', value='n/a')
-        div.row
-          label.col-sm-2.container-fluid(for='food') Food:
-          input#tea.form_control(type='input', name='food', value='n/a')
-        div.row
-          label.col-sm-2.container-fluid(for='random') Random med:
-          input#walk.form_control(type='input', name='random', value='n/a')
-        div.row
-          label.col-sm-2.container-fluid(for='rizora') Rizora:
-          input#walk.form_control(type='input', name='rizora', value='n/a')
-
-      div.row.form-group
-        label.col-sm.container-fluid Status of expected triggers
-        div.row
-          label.col-sm-5.container-fluid(for='night_meds_on_time') Did you take your medicines on time last night?:
-          input#night_meds_on_time.form_control(type='checkbox', name='night_meds_on_time')
-
-        div.row
-          label.col-sm-5.container-fluid(for='ayurvedic_medicine') Did you take your ayuvedic medicines yesterday?:
-          input#ayurvedic_medicine.form_control(type='checkbox', name='ayurvedic_medicine')
-
-        div.row
-          label.col-sm-5.container-fluid(for='overexertion') Did you overexert yesterday?:
-          input#overexertion.form_control(type='checkbox', name='overexertion')
-
-        div.row
-          label.col-sm-5.container-fluid(for='acidity') Were you feeling too acidic yesterday?:
-          input#acidity.form_control(type='checkbox', name='acidity')
-
-    button.btn.btn-primary(type='submit') Submit
-
   if errors
-    ul
+    ul.bg-warning.text-white
       for error in errors
         li!= error.msg
+  form(method='POST', action='')
+    table.table
+      tbody
+        tr
+          td Date
+          td
+            input(name='date', type='date')
+        tr
+          td Status on waking up
+          td
+            input(name='status_on_wakeup', type='text', value='fine')
+        tr
+          td Severity
+          td
+            input(name='severity', type='text', value='0')
+        tr
+          td Relief Method: Tea
+          td
+            input(name='tea', type='text', value='n/a')
+        tr
+          td Relief Method: Walk
+          td
+            input(name='walk', type='text', value='n/a')
+        tr
+          td Relief Method: Bath
+          td
+            input(name='bath', type='text', value='n/a')
+        tr
+          td Relief Method: Aciloc
+          td
+            input(name='aciloc', type='text', value='n/a')
+        tr
+          td Relief Method: Food
+          td
+            input(name='food', type='text', value='n/a')
+        tr
+          td Relief Method: Random Medicine
+          td
+            input(name='random', type='text', value='n/a')
+        tr
+          td Relief Method: Rizora
+          td
+            input(name= 'rizora', type='text', value='n/a')
+        tr
+          td Possible Trigger: Took night medication on time
+          td
+            input(name='night_meds_on_time', type='text', value='false')
+        tr
+          td Possible Trigger: Took ayurvedic medicines
+          td
+            input(name='ayurvedic_medicine', type='text', value='false')
+        tr
+          td Possible Trigger: Overexertion
+          td
+            input(name='overexertion', type='text', value='false')
+        tr
+          td Possible Triggers: Acidity
+          td
+            input(name='acidity', type='text', value='false')
+    button.btn.btn-primary(type='submit') Save

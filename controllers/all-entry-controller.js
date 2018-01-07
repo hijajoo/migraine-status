@@ -21,6 +21,6 @@ exports.entry_list = function(req, res, next) {
     .exec(function (err, list_entries) {
       if (err) { return next(err); }
       // Successful, so render.
-      res.render('entry_list', { title: 'Entries List', list_entries:  list_entries});
+      res.render('entry_list', { title: 'List of Entries', list_entries:  list_entries});
     });
 };

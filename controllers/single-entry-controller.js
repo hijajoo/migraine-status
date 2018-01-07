@@ -10,7 +10,7 @@ var validReliefInput = [
 
 // Display Genre create form on GET
 exports.create_get = function(req, res, next) {
-    res.render('entry_form', { title: 'Create Single Day Entry' });
+    res.render('entry_form', { title: 'Create a new Entry' });
 };
 
 //POST request for create form
@@ -59,7 +59,7 @@ exports.create_post =  [
 
         if (!errors.isEmpty()) {
             // There are errors. Render the form again with sanitized values/error messages.
-            res.render('entry_form', { title: 'Create Single Day Entry', entry: entry, errors: errors.array()});
+            res.render('entry_form', { title: 'Create a new Entry', entry: entry, errors: errors.array()});
             return;
         }
         else {
@@ -89,32 +89,38 @@ exports.entry_detail = function(req, res, next) {
 };
 
 exports.entry_update = function(req, res, next){
-  perDayEntry.update(
-    {date: new Date(+req.params.id)},
-    {
-      status_on_wakeup: req.body.status_on_wakeup,
-      severity: (req.body.severity === undefined ? 0 : parseInt(req.body.severity)),
-      relief_methods: {
-        tea: req.body.tea,
-        walk: req.body.walk,
-        bath: req.body.bath,
-        aciloc: req.body.aciloc,
-        food: req.body.food,
-        random: req.body.random,
-        rizora: req.body.rizora,
-      },
-      status_of_triggers: {
-        night_meds_on_time: (req.body.night_meds_on_time === 'true'),
-        ayurvedic_medicine: (req.body.ayurvedic_medicine === 'true'),
-        overexertion: (req.body.overexertion === 'true'),
-        acidity: (req.body.acidity === 'true'),
-      }
-    },
-    function(err, raw){
-      console.log(raw);
+  perDayEntry.findById(new Date(+req.params.id))
+    .exec(function(err, entry){
+      if(err) next(err);
+      console.log(entry.date_yyyymmdd);
+      entry.status_on_wakeup = req.body.status_on_wakeup;
+      entry.severity = req.body.severity;
+      entry.relief_methods.tea = req.body.tea;
+      entry.relief_methods.walk = req.body.walk;
+      entry.relief_methods.bath = req.body.bath;
+      entry.relief_methods.aciloc = req.body.aciloc;
+      entry.relief_methods.food = req.body.food;
+      entry.relief_methods.random = req.body.random;
+      entry.relief_methods.rizora = req.body.rizora;
+      entry.status_of_triggers.night_meds_on_time = req.body.night_meds_on_time;
+      entry.status_of_triggers.ayurvedic_medicine = req.body.ayurvedic_medicine;
+      entry.status_of_triggers.overexertion = req.body.overexertion;
+      entry.status_of_triggers.acidity = req.body.acidity;
+      entry.save(function(err){
+        if(err) return next(err);
+        res.redirect(entry.url);
+        next();
+      })
     })
 }
 
 exports.entry_delete = function(req, res, next){
-  perDayEntry.deleteOne({date: new Date(+req.params.id)});
+  perDayEntry.findById(new Date(+req.params.id))
+    .exec(function(err, entry){
+      entry.remove(function(err){
+        if(err) return next(err);
+        res.redirect('http://localhost:3000/migraine-status/all');
+        next();
+      })
+    })
 }

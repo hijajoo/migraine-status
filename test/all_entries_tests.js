@@ -20,8 +20,8 @@ module.exports = function all_entries_testcases(server){
     it("should return HTML 200", function(){
       expect(saveRes.statusCode).to.equal(200);
     });
-    it("should have title Entries list", function(){
-      expect(saveBody).to.include('<title>Entries List</title>');
+    it("should have title List of Entries", function(){
+      expect(saveBody).to.include('<title>List of Entries</title>');
     });
     it("should contain extractable links", function(){
       var link_regex = /<a href=\"([0-9a-zA-Z/\-]+)\">/g;
