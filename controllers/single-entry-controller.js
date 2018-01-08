@@ -1,7 +1,6 @@
 var perDayEntry = require('../models/per-day-entry-schema');
 const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
-var async = require('async');
 var validReliefInput = [
   "n/a",
   "helped",
@@ -37,7 +36,7 @@ exports.create_post =  [
         var entry = new perDayEntry(
           { _id: req.body.date,
             status_on_wakeup: req.body.status_on_wakeup,
-            severity: (req.body.severity === undefined ? 0: parseInt(req.body.severity)),
+            severity: parseInt(req.body.severity),
             relief_methods: {
               tea: req.body.tea,
               walk: req.body.walk,
@@ -56,25 +55,26 @@ exports.create_post =  [
           }
         );
 
-
         if (!errors.isEmpty()) {
             // There are errors. Render the form again with sanitized values/error messages.
             res.render('entry_form', { title: 'Create a new Entry', entry: entry, errors: errors.array()});
             return;
         }
         else {
-          //TBD: Move this to promise?
+            //If an entry for that date already exists, redirect to that entry_form
+            //Otherwise create a new entry and then redirect to its url
             perDayEntry.findOne({'_id': req.body.date})
               .exec(function(err, found_entry){
                 if(err) return next(err);
                 if(found_entry){
                   res.redirect(found_entry.url)
+                } else {
+                  entry.save(function (err) {
+                    if (err) return err;
+                    res.redirect(entry.url);
+                  });
                 }
               })
-              entry.save(function (err) {
-                if (err) return err;
-                res.redirect(entry.url);
-              });
         }
     }
 ];
