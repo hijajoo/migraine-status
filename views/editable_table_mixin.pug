@@ -1,0 +1,149 @@
+mixin entry_table(entry, isStatic)
+  - var relief_arr = ['n/a', 'helped', 'did not help'];
+  - var status_arr = ['fine', 'migraine', 'motion-migraine', 'tightness'];
+  tr
+    td Status on waking up
+    if isStatic
+      td #{entry.status_on_wakeup}
+    else
+      td
+        select.form-control(name='status_on_wakeup')
+          for value in status_arr
+            if value == entry.status_on_wakeup
+              option(selected) #{value}
+            else
+              option #{value}
+  tr
+    td Severity
+    if isStatic
+      td #{entry.severity}
+    else
+      td
+        - var i = 0
+        select.form-control(name='severity')
+          while i <= 10
+            option #{i++}
+  tr
+    td Relief Method: Tea
+    if isStatic
+      td #{entry.relief_methods.tea}
+    else
+      td
+        select.form-control(name='tea')
+          for value in relief_arr
+            if value == entry.relief_methods.tea
+              option(selected) #{value}
+            else
+              option #{value}
+  tr
+    td Relief Method: Walk
+    if isStatic
+      td #{entry.relief_methods.walk}
+    else
+      td
+        select.form-control(name='walk', value=entry.relief_methods.walk)
+          for value in relief_arr
+            if value == entry.relief_methods.walk
+              option(selected) #{value}
+            else
+              option #{value}
+  tr
+    td Relief Method: Bath
+    if isStatic
+      td #{entry.relief_methods.bath}
+    else
+      td
+        select.form-control(name='bath', value=entry.relief_methods.bath)
+          for value in relief_arr
+            if value == entry.relief_methods.bath
+              option(selected) #{value}
+            else
+              option #{value}
+  tr
+    td Relief Method: Aciloc
+    if isStatic
+      td #{entry.relief_methods.aciloc}
+    else
+      td
+        select.form-control(name='aciloc', value=entry.relief_methods.aciloc)
+          for value in relief_arr
+            if value == entry.relief_methods.aciloc
+              option(selected) #{value}
+            else
+              option #{value}
+  tr
+    td Relief Method: Food
+    if isStatic
+      td #{entry.relief_methods.food}
+    else
+      td
+        select.form-control(name='food', value=entry.relief_methods.food)
+          for value in relief_arr
+            if value == entry.relief_methods.food
+              option(selected) #{value}
+            else
+              option #{value}
+  tr
+    td Relief Method: Random Medicine
+    if isStatic
+      td #{entry.relief_methods.random}
+    else
+      td
+        select.form-control(name='random', value=entry.relief_methods.random)
+          for value in relief_arr
+            if value == entry.relief_methods.random
+              option(selected) #{value}
+            else
+              option #{value}
+  tr
+    td Relief Method: Rizora
+    if isStatic
+      td #{entry.relief_methods.rizora}
+    else
+      td
+        select.form-control(name='rizora', value=entry.relief_methods.rizora)
+          for value in relief_arr
+            if value == entry.relief_methods.rizora
+              option(selected) #{value}
+            else
+              option #{value}
+  tr
+    td Possible Trigger: Took night medication on time
+    if isStatic
+      td #{entry.status_of_triggers.night_meds_on_time}
+    else
+      td
+        if entry.status_of_triggers.night_meds_on_time === true
+          input.form-control(name='night_meds_on_time', type='checkbox', checked)
+        else
+          input.form-control(name='night_meds_on_time', type='checkbox')
+  tr
+    td Possible Trigger: Took ayurvedic medicines
+    if isStatic
+      td #{entry.status_of_triggers.ayurvedic_medicine}
+    else
+      td
+        if entry.status_of_triggers.ayurvedic_medicine === true
+          input.form-control(name='ayurvedic_medicine', type='checkbox', checked)
+        else
+          input.form-control(name='ayurvedic_medicine', type='checkbox')
+  tr
+    td Possible Trigger: Overexertion
+    if isStatic
+      td #{entry.status_of_triggers.overexertion}
+    else
+      td
+        if entry.status_of_triggers.overexertion === true
+          input.form-control(name='overexertion', type='checkbox', checked)
+        else
+          input.form-control(name='overexertion', type='checkbox')
+  tr
+    td Possible Triggers: Acidity
+    if isStatic
+      td #{entry.status_of_triggers.acidity}
+    else
+      td
+        if entry.status_of_triggers.acidity === true
+          input.form-control(name='acidity', type='checkbox', checked)
+        else
+          input.form-control(name='acidity', type='checkbox')
