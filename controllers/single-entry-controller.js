@@ -92,7 +92,6 @@ exports.entry_update = function(req, res, next){
   perDayEntry.findById(new Date(+req.params.id))
     .exec(function(err, entry){
       if(err) next(err);
-      console.log(entry.date_yyyymmdd);
       entry.status_on_wakeup = req.body.status_on_wakeup;
       entry.severity = req.body.severity;
       entry.relief_methods.tea = req.body.tea;
@@ -102,10 +101,10 @@ exports.entry_update = function(req, res, next){
       entry.relief_methods.food = req.body.food;
       entry.relief_methods.random = req.body.random;
       entry.relief_methods.rizora = req.body.rizora;
-      entry.status_of_triggers.night_meds_on_time = req.body.night_meds_on_time;
-      entry.status_of_triggers.ayurvedic_medicine = req.body.ayurvedic_medicine;
-      entry.status_of_triggers.overexertion = req.body.overexertion;
-      entry.status_of_triggers.acidity = req.body.acidity;
+      entry.status_of_triggers.night_meds_on_time = (req.body.night_meds_on_time === 'on');
+      entry.status_of_triggers.ayurvedic_medicine = (req.body.ayurvedic_medicine === 'on');
+      entry.status_of_triggers.overexertion = (req.body.overexertion === 'on');
+      entry.status_of_triggers.acidity = (req.body.acidity === 'on');
       entry.save(function(err){
         if(err) return next(err);
         res.redirect(entry.url);

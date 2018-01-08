@@ -1,51 +1,15 @@
 extends layout
+include ./editable_table_mixin.pug
 
 block content
+  - var arr = ['n/a', 'helped', 'did not help'];
   h1 #{entry.datestr}
   button.glyphicon.glyphicon-pencil(data-toggle="modal" href='#inputModal' data-target="#inputModal")
   button.glyphicon.glyphicon-trash(data-toggle='modal', data-target='#deleteModal')
   div
-    table(class='table')
+    table.table.table-bordered
       tbody
-        tr
-          td Status on waking up
-          td #{entry.status_on_wakeup}
-        tr
-          td Severity
-          td #{entry.severity}
-        tr
-          td Relief Method: Tea
-          td #{entry.relief_methods.tea}
-        tr
-          td Relief Method: Walk
-          td #{entry.relief_methods.walk}
-        tr
-          td Relief Method: Bath
-          td #{entry.relief_methods.bath}
-        tr
-          td Relief Method: Aciloc
-          td #{entry.relief_methods.aciloc}
-        tr
-          td Relief Method: Food
-          td #{entry.relief_methods.food}
-        tr
-          td Relief Method: Random Medicine
-          td #{entry.relief_methods.random}
-        tr
-          td Relief Method: Rizora
-          td #{entry.relief_methods.rizora}
-        tr
-          td Possible Trigger: Took night medication on time
-          td #{entry.status_of_triggers.night_meds_on_time}
-        tr
-          td Possible Trigger: Took ayurvedic medicines
-          td #{entry.status_of_triggers.ayurvedic_medicine}
-        tr
-          td Possible Trigger: Overexertion
-          td #{entry.status_of_triggers.overexertion}
-        tr
-          td Possible Triggers: Acidity
-          td #{entry.status_of_triggers.acidity}
+        +entry_table(entry, true)
   div.modal.fade(id='inputModal', aria-hidden='true')
     div.modal-dialog
       div.modal-content
@@ -55,60 +19,9 @@ block content
             span(aria-hidden="true") &times;
         div.modal-body
           form(method='POST', action=(entry.date_ts + '/update'))
-            table.table
+            table.table.table-bordered
               tbody
-                tr
-                  td Status on waking up
-                  td
-                    input(name='status_on_wakeup', type='text', value=entry.status_on_wakeup)
-                tr
-                  td Severity
-                  td
-                    input(name='severity', type='text', value=entry.severity)
-                tr
-                  td Relief Method: Tea
-                  td
-                    input(name='tea', type='text', value=entry.relief_methods.tea)
-                tr
-                  td Relief Method: Walk
-                  td
-                    input(name='walk', type='text', value=entry.relief_methods.walk)
-                tr
-                  td Relief Method: Bath
-                  td
-                    input(name='bath', type='text', value=entry.relief_methods.bath)
-                tr
-                  td Relief Method: Aciloc
-                  td
-                    input(name='aciloc', type='text', value=entry.relief_methods.aciloc)
-                tr
-                  td Relief Method: Food
-                  td
-                    input(name='food', type='text', value=entry.relief_methods.food)
-                tr
-                  td Relief Method: Random Medicine
-                  td
-                    input(name='random', type='text', value=entry.relief_methods.random)
-                tr
-                  td Relief Method: Rizora
-                  td
-                    input(name= 'rizora', type='text', value=entry.relief_methods.rizora)
-                tr
-                  td Possible Trigger: Took night medication on time
-                  td
-                    input(name='night_meds_on_time', type='text', value='' + entry.status_of_triggers.night_meds_on_time)
-                tr
-                  td Possible Trigger: Took ayurvedic medicines
-                  td
-                    input(name='ayurvedic_medicine', type='text', value='' + entry.status_of_triggers.ayurvedic_medicine)
-                tr
-                  td Possible Trigger: Overexertion
-                  td
-                    input(name='overexertion', type='text', value='' + entry.status_of_triggers.overexertion)
-                tr
-                  td Possible Triggers: Acidity
-                  td
-                    input(name='acidity', type='text', value='' + entry.status_of_triggers.acidity)
+                +entry_table(entry, false)
             button.btn.btn-primary(type='submit') Save
   div.modal.fade(id='deleteModal', aria-hidden='true')
     div.modal-dialog

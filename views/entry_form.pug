@@ -1,84 +1,20 @@
 extends layout
+include ./editable_table_mixin.pug
 
 block content
-  - var arr = ['n/a', 'helped', 'did not help'];
+  -var default_entry = { status_on_wakeup: "fine", severity: 0, relief_methods: { tea: "n/a", walk: "n/a", bath: "n/a", aciloc: "n/a", food: "n/a", random: "n/a", rizora: "n/a"}, status_of_triggers: {night_meds_on_time: false, ayurvedic_medicine: false, overexertion: false, acidity: false}}
   h1 #{title}
   if errors
     ul.bg-warning.text-white
       for error in errors
         li!= error.msg
   form(method='POST', action='')
-    table.table
+    table.table.table-bordered
       tbody
         tr
           td Date
           td
             input.form-control(name='date', type='date')
-        tr
-          td Status on waking up
-          td
-            input.form-control(name='status_on_wakeup', type='text', value='fine')
-        tr
-          td Severity
-          td
-            input.form-control(name='severity', type='text', value='0')
-        tr
-          td Relief Method: Tea
-          td
-            select.form-control
-              for value in arr
-                option #{value}
-        tr
-          td Relief Method: Walk
-          td
-            select.form-control
-              for value in arr
-                option #{value}
-        tr
-          td Relief Method: Bath
-          td
-            select.form-control
-              for value in arr
-                option #{value}
-        tr
-          td Relief Method: Aciloc
-          td
-            select.form-control
-              for value in arr
-                option #{value}
-        tr
-          td Relief Method: Food
-          td
-            select.form-control
-              for value in arr
-                option #{value}
-        tr
-          td Relief Method: Random Medicine
-          td
-            select.form-control
-              for value in arr
-                option #{value}
-        tr
-          td Relief Method: Rizora
-          td
-            select.form-control
-              for value in arr
-                option #{value}
-        tr
-          td Possible Trigger: Took night medication on time
-          td
-            input.form-control(name='night_meds_on_time', type='checkbox')
-        tr
-          td Possible Trigger: Took ayurvedic medicines
-          td
-            input.form-control(name='ayurvedic_medicine', type='checkbox')
-        tr
-          td Possible Trigger: Overexertion
-          td
-            input.form-control(name='overexertion', type='checkbox')
-        tr
-          td Possible Triggers: Acidity
-          td
-            input.form-control(name='acidity', type='checkbox')
+        +entry_table(default_entry, false)
     button.btn.btn-primary(type='submit') Save
     button.btn.btn-secondary(type='reset') Reset
