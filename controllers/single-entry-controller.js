@@ -72,7 +72,7 @@ exports.create_post =  [
                 }
               })
               entry.save(function (err) {
-                if (err) { return next(err); }
+                if (err) return err;
                 res.redirect(entry.url);
               });
         }
@@ -83,7 +83,7 @@ exports.create_post =  [
 exports.entry_detail = function(req, res, next) {
   perDayEntry.findById(new Date(+req.params.id))
     .exec(function(err, entry){
-      if(err) return next(err);
+      if(err) return err;
       res.render('entry_detail', { title: 'Entry Detail', entry: entry});
     });
 };
@@ -91,7 +91,7 @@ exports.entry_detail = function(req, res, next) {
 exports.entry_update = function(req, res, next){
   perDayEntry.findById(new Date(+req.params.id))
     .exec(function(err, entry){
-      if(err) next(err);
+      if(err) return err;
       entry.status_on_wakeup = req.body.status_on_wakeup;
       entry.severity = req.body.severity;
       entry.relief_methods.tea = req.body.tea;
@@ -106,9 +106,8 @@ exports.entry_update = function(req, res, next){
       entry.status_of_triggers.overexertion = (req.body.overexertion === 'on');
       entry.status_of_triggers.acidity = (req.body.acidity === 'on');
       entry.save(function(err){
-        if(err) return next(err);
+        if(err) return err;
         res.redirect(entry.url);
-        next();
       })
     })
 }
@@ -117,9 +116,8 @@ exports.entry_delete = function(req, res, next){
   perDayEntry.findById(new Date(+req.params.id))
     .exec(function(err, entry){
       entry.remove(function(err){
-        if(err) return next(err);
+        if(err) return err;
         res.redirect('http://localhost:3000/migraine-status/all');
-        next();
       })
     })
 }
