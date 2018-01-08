@@ -6,7 +6,7 @@ var entry_detail_testcases = require('../test/entry_detail_tests');
 var home_page_testcases = require('../test/home_tests');
 var create_entry_testcases = require('../test/create_entry_tests');
 var all_entries_testcases = require('../test/all_entries_tests');
-var create_update_delete_testcases = require('../test/crud_tests');
+//var create_update_delete_testcases = require('../test/crud_tests');
 
 
 describe("Testing Individual pages in Migraine Status application", function(){
