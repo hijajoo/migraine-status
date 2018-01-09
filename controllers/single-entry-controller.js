@@ -51,7 +51,8 @@ exports.create_post =  [
               ayurvedic_medicine: (req.body.ayurvedic_medicine === 'on'),
               overexertion: (req.body.overexertion === 'on'),
               acidity: (req.body.acidity === 'on'),
-            }
+            },
+            Notes: req.body.notes,
           }
         );
 
@@ -105,6 +106,7 @@ exports.entry_update = function(req, res, next){
       entry.status_of_triggers.ayurvedic_medicine = (req.body.ayurvedic_medicine === 'on');
       entry.status_of_triggers.overexertion = (req.body.overexertion === 'on');
       entry.status_of_triggers.acidity = (req.body.acidity === 'on');
+      entry.Notes = req.body.notes;
       entry.save(function(err){
         if(err) return err;
         res.redirect(entry.url);

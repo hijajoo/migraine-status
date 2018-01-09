@@ -22,7 +22,10 @@ mixin entry_table(entry, isStatic)
         - var i = 0
         select.form-control(name='severity')
           while i <= 10
-            option #{i++}
+            if i === entry.severity
+              option(selected) #{i++}
+            else
+              option #{i++}
   tr
     td Relief Method: Tea
     if isStatic
@@ -147,3 +150,10 @@ mixin entry_table(entry, isStatic)
           input.form-control(name='acidity', type='checkbox', checked)
         else
           input.form-control(name='acidity', type='checkbox')
+  tr
+    td Notes
+    if isStatic
+      td #{entry.Notes}
+    else
+      td
+        textarea.form-control(name='notes') #{entry.Notes}
