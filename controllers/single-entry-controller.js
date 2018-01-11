@@ -14,8 +14,9 @@ exports.create_get = function(req, res, next) {
 
 //POST request for create form
 exports.create_post =  [
-    // Validate that the name field is not empty.
-    body('date', 'Enter Date').trim().isLength({ min: 1 }).not().isAfter(),
+
+  //Validation
+    body('date', 'Enter Date').trim().isLength({ min: 1 }),
     body('status_on_wakeup', "Enter status on wakeup").trim().isLength({min:1}),
     body('severity', "Enter a severity between 0 to 10").optional().isInt({min:0, max:10}),
     body('tea', "Invalid value for relief method: Tea").optional().trim().isIn(validReliefInput),
@@ -29,7 +30,6 @@ exports.create_post =  [
 
     // Process request after validation and sanitization.
     (req, res, next) => {
-
         // Extract the validation errors from a request.
         const errors = validationResult(req);
         // Create an entry object with escaped and trimmed data.
@@ -89,30 +89,45 @@ exports.entry_detail = function(req, res, next) {
     });
 };
 
-exports.entry_update = function(req, res, next){
-  perDayEntry.findById(new Date(+req.params.id))
-    .exec(function(err, entry){
-      if(err) return err;
-      entry.status_on_wakeup = req.body.status_on_wakeup;
-      entry.severity = req.body.severity;
-      entry.relief_methods.tea = req.body.tea;
-      entry.relief_methods.walk = req.body.walk;
-      entry.relief_methods.bath = req.body.bath;
-      entry.relief_methods.aciloc = req.body.aciloc;
-      entry.relief_methods.food = req.body.food;
-      entry.relief_methods.random = req.body.random;
-      entry.relief_methods.rizora = req.body.rizora;
-      entry.status_of_triggers.night_meds_on_time = (req.body.night_meds_on_time === 'on');
-      entry.status_of_triggers.ayurvedic_medicine = (req.body.ayurvedic_medicine === 'on');
-      entry.status_of_triggers.overexertion = (req.body.overexertion === 'on');
-      entry.status_of_triggers.acidity = (req.body.acidity === 'on');
-      entry.Notes = req.body.notes;
-      entry.save(function(err){
-        if(err) return err;
-        res.redirect(entry.url);
-      })
-    })
+exports.entry_update = [
+  //Validation
+    body('date', 'Enter Date').trim().isLength({ min: 1 }),
+    body('status_on_wakeup', "Enter status on wakeup").trim().isLength({min:1}),
+    body('severity', "Enter a severity between 0 to 10").optional().isInt({min:0, max:10}),
+    body('tea', "Invalid value for relief method: Tea").optional().trim().isIn(validReliefInput),
+    body('walk', "Invalid value for relief method: Walk").optional().trim().isIn(validReliefInput),
+    body('aciloc', "Invalid value for relief method: Aciloc").optional().trim().isIn(validReliefInput),
+    body('bath', "Invalid value for relief method: Bath").optional().trim().isIn(validReliefInput),
+    body('food', "Invalid value for relief method: Food").optional().trim().isIn(validReliefInput),
+    body('random', "Invalid value for relief method: Random").optional().trim().isIn(validReliefInput),
+    body('rizora', "Invalid value for relief method: Rizora").optional().trim().isIn(validReliefInput),
+
+    function(req, res, next){
+
+      perDayEntry.findById(new Date(+req.params.id))
+        .exec(function(err, entry){
+          if(err) return err;
+          entry.status_on_wakeup = req.body.status_on_wakeup;
+          entry.severity = req.body.severity;
+          entry.relief_methods.tea = req.body.tea;
+          entry.relief_methods.walk = req.body.walk;
+          entry.relief_methods.bath = req.body.bath;
+          entry.relief_methods.aciloc = req.body.aciloc;
+          entry.relief_methods.food = req.body.food;
+          entry.relief_methods.random = req.body.random;
+          entry.relief_methods.rizora = req.body.rizora;
+          entry.status_of_triggers.night_meds_on_time = (req.body.night_meds_on_time === 'on');
+          entry.status_of_triggers.ayurvedic_medicine = (req.body.ayurvedic_medicine === 'on');
+          entry.status_of_triggers.overexertion = (req.body.overexertion === 'on');
+          entry.status_of_triggers.acidity = (req.body.acidity === 'on');
+          entry.Notes = req.body.notes;
+          entry.save(function(err){
+            if(err) return err;
+            res.redirect(entry.url);
+          })
+        })
 }
+];
 
 exports.entry_delete = function(req, res, next){
   perDayEntry.findById(new Date(+req.params.id))

@@ -47,19 +47,6 @@ module.exports = function create_entry_testcases(server){
         done();
       })
     })
-    it("should not accept future date", function(done){
-      options = {
-        url: create_url,
-        form: {
-          date: "01/01/2100",
-          status_on_wakeup: "fine",
-        }
-      };
-      request.post(options, function(err, res, body){
-        expect(body).to.include("<li>Enter Date</li>");
-        done();
-      })
-    })
     it("should not accept empty status_on_wakeup field", function(done){
       options = {
         url: create_url,
