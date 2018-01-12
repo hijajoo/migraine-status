@@ -4,7 +4,7 @@ mixin entry_table(entry, isStatic)
   tr
     td Status on waking up
     if isStatic
-      td #{entry.status_on_wakeup}
+      td(id='status_on_wakeup') #{entry.status_on_wakeup}
     else
       td
         select.form-control(name='status_on_wakeup')
