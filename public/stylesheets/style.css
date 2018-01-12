@@ -12,3 +12,35 @@ a {
     padding: 0;
     list-style: none;
 }
+
+.circle-text {
+  background: blue;
+  color: white;
+  width: 25px;
+  border-radius: 30%;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.div-title{
+  font-weight: bold;
+}
+
+.center-elem {
+  margin: auto;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.home-page-text {
+  font: 30px Times;
+}
+
+.bordered-div{
+  border: black 1px solid;
+  width: 70%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}

@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  - function daysSince(a){ return Math.floor((new Date() - a)/(1000*60*60*24))};
+  h1 Welcome, #{user}
+  div.bordered-div.home-page-text.center-elem.center-text
+    div You have been Migraine free for the last
+    div.center-elem.circle-text #{daysSince(last_migraine_entry._id)}
+    div days
+  div.bordered-div.home-page-text.center-elem
+    div.div-title.center-text Details of your last migraine
+    div Date: #{last_migraine_entry.datestr}
+    div Type: #{last_migraine_entry.status_on_wakeup}
+    div Severity: #{last_migraine_entry.severity}

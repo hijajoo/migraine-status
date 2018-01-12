@@ -24,3 +24,13 @@ exports.entry_list = function(req, res, next) {
       res.render('entry_list', { title: 'List of Entries', list_entries:  list_entries});
     });
 };
+
+exports.migraine_free_for = function(req, res, next) {
+  perDayEntry.find({status_on_wakeup: {$ne: 'fine'}})
+    .sort([['_id', 'descending']])
+    .exec(function(err, list_of_migraine_entries){
+      if(err) return next(err);
+    //  console.log(list_of_migraine_entries);
+      res.render('migraine_free_for', {title: 'Migraine Status Home', user: "Hina", last_migraine_entry: list_of_migraine_entries[0]})
+    });
+};

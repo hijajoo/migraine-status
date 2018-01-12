@@ -20,13 +20,9 @@ module.exports = function home_page_testcases(server){
     it("should return HTTP 200", function(){
       expect(saveRes.statusCode).to.equal(200);
     });
-    it("should have title Migraine Entry Home", function(){
-      expect(saveBody).to.include('<title>Migraine Entry Home</title>');
+    it("should have title Migraine Status Home", function(){
+      expect(saveBody).to.include('<title>Migraine Status Home</title>');
     });
-    it("should have valid count of entries", function(){
-      var entry_count = saveBody.match(/<li><strong>Migraine Entries:<\/strong> ([0-9]+)<\/li>/);
-      expect(+entry_count[1]).is.ok;
-    })
     it("should contain extractable links", function(){
       var link_regex = /<a href=\"([0-9a-zA-Z/\-]+)\">/g;
       var arr;
