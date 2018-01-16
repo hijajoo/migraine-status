@@ -1,0 +1,15 @@
+mixin table_data(entry)
+  td(name='date') #{entry.datestr}
+  td(name='status_on_wakeup') #{entry.status_on_wakeup}
+  td(name='severity') #{entry.severity}
+  td(name='tea') #{entry.relief_methods.tea}
+  td(name='walk') #{entry.relief_methods.walk}
+  td(name='bath') #{entry.relief_methods.bath}
+  td(name='aciloc') #{entry.relief_methods.aciloc}
+  td(name='food') #{entry.relief_methods.food}
+  td(name='random') #{entry.relief_methods.random}
+  td(name='rizora') #{entry.relief_methods.rizora}
+  td(name='night_meds_on_time') #{entry.status_of_triggers.night_meds_on_time}
+  td(name='ayurvedic_medicine') #{entry.status_of_triggers.ayurvedic_medicine}
+  td(name='overexertion') #{entry.status_of_triggers.overexertion}
+  td(name='acidity') #{entry.status_of_triggers.acidity}
