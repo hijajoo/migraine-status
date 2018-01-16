@@ -4,8 +4,8 @@ include ./editable_table_mixin.pug
 block content
   - var arr = ['n/a', 'helped', 'did not help'];
   h1 #{entry.datestr}
-  button.glyphicon.glyphicon-pencil(data-toggle="modal" href='#inputModal' data-target="#inputModal")
-  button.glyphicon.glyphicon-trash(data-toggle='modal', data-target='#deleteModal')
+  button.glyphicon.glyphicon-pencil(data-toggle="modal" href='#inputModal' data-target="#inputModal") Edit
+  button.glyphicon.glyphicon-trash(data-toggle='modal', data-target='#deleteModal') Delete
   div
     table.table.table-bordered
       tbody
