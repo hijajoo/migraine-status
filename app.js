@@ -18,6 +18,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var homeRouter = require('./routes/home-routes');
 var createEntryRouter = require('./routes/create-entry-routes');
+var debuglogger = require('./logger').debuglogger;
 
 var app = express();
 
@@ -52,6 +53,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
+  debuglogger.error(err);
   res.render('error');
 });
 

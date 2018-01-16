@@ -3,12 +3,19 @@ extends layout
 block content
   - function daysSince(a){ return Math.floor((new Date() - a)/(1000*60*60*24))};
   h1 Welcome, #{user}
-  div.bordered-div.home-page-text.center-elem.center-text
-    div You have been Migraine free for the last
-    div.center-elem.circle-text #{daysSince(last_migraine_entry._id)}
-    div days
-  div.bordered-div.home-page-text.center-elem
-    div.div-title.center-text Details of your last migraine
-    div Date: #{last_migraine_entry.datestr}
-    div Type: #{last_migraine_entry.status_on_wakeup}
-    div Severity: #{last_migraine_entry.severity}
+  div.flex-box-center
+    div.card.border-info
+      h3.card-header You have been migraine free for
+      div.card-body
+        div.card-text.center-elem.circle-text.home-page-text #{daysSince(last_migraine_entry._id)}
+        div.card-text.center-text.home-page-text days
+      h3.card-header Details of your Last Migraine
+      div.card-body
+        ul.list-group
+          li.list-group-item Date: #{last_migraine_entry.datestr}
+          li.list-group-item Type of migraine: #{last_migraine_entry.status_on_wakeup}
+          li.list-group-item Severity: #{last_migraine_entry.severity}
+          li.list-group-item Tea: #{last_migraine_entry.relief_methods.tea}
+          li.list-group-item Walk: #{last_migraine_entry.relief_methods.walk}
+          if last_migraine_entry.Notes
+            li.list-group-item Notes: #{last_migraine_entry.Notes}

@@ -17,6 +17,7 @@ a {
   background: blue;
   color: white;
   width: 25px;
+  height: 100%;
   border-radius: 30%;
   vertical-align: middle;
   text-align: center;
@@ -24,6 +25,7 @@ a {
 
 .div-title{
   font-weight: bold;
+  font: 32px Times;
 }
 
 .center-elem {
@@ -39,8 +41,30 @@ a {
 }
 
 .bordered-div{
-  border: black 1px solid;
   width: 70%;
   margin-top: 30px;
   margin-bottom: 30px;
+  background-color: #89cff0;
 }
+
+.flex-box-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/*
+.table-fixed tbody{
+  height:500px;
+  overflow-y:auto;
+  width: 100%;
+}
+.table-fixed thead,tbody,tr,td,th{
+  display:block;
+}
+.table-fixed tbody td{
+  float:left;
+}
+.table-fixed thead tr th {
+  float:left;
+}
+*/
